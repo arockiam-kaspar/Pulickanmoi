@@ -1,0 +1,23 @@
+{
+	"labels": {
+		"lbl_mnu_top_logout": "Logout",
+		"lbl_mnu_top_myaccount": "My Account",
+		"lbl_mnu_top_myschools": "My Schools",
+		"lbl_mnu_main_assessments": "View all active",
+		"lbl_mnu_main_scorebook": "View all active",
+		"lbl_mnu_main_reports": "Reports",
+		"lbl_mnu_main_admin": "Administration",
+		"lbl_mnu_main_admin_districts": "Districts",
+		"lbl_mnu_main_admin_schools": "Schools",
+		"lbl_mnu_main_admin_classes": "Classes",
+		"lbl_mnu_main_admin_students": "Students",
+		"lbl_mnu_main_admin_users": "Users",
+		"lbl_mnu_main_admin_roles": "Roles",
+		"lbl_mnu_main_admin_sis": "SIS",
+		"lbl_mnu_main_admin_log": "Log",
+		"lbl_mnu_main_admin_system": "System",
+		"lbl_mnu_foot_about": "About",
+		"lbl_mnu_foot_help": "Help",
+		"lbl_mnu_foot_leagal": "Legal"
+	}
+}

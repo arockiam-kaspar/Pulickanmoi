@@ -1,0 +1,40 @@
+{
+	"labels": {
+		"lbl_opt_isactive_true": "View all active",
+		"lbl_opt_isactive_false": "View all inactive",
+		"lbl_opt_isactive": [
+			{
+				"val_field": true,
+				"dis_field": "View all Active"
+			}, {
+				"val_field": false,
+				"dis_field": "View all Inactive"
+			}
+		],
+		"lbl_btn_addclass": "Add Class...",
+		"lbl_btn_addschool": "Add School",
+		"lbl_btn_editschool": "Edit School",
+		"lbl_btn_edit": "Edit",
+		"lbl_btn_makeinactive": "Make Inactive",
+		"lbl_btn_makeactive": "Make Active",
+		"lbl_btn_ok": "OK",
+		"lbl_btn_cancel": "Cancel",
+		"lbl_txt_schoolname": "School Name",
+		"lbl_txt_sisid": "SIS ID",
+		"lbl_txt_district": "District",
+		"lbl_txt_search": "Search",
+		"lbl_tbl_colttl_schname": "Name",
+		"lbl_tbl_colttl_schteacher": "Teacher",
+		"lbl_tbl_colttl_schgrade": "Grade",
+		"lbl_tbl_colttl_schresclass": "Resource Class",
+		"lbl_tbl_colttl_schsize": "Size",
+		"lbl_tbl_colttl_schperiod": "Period",
+		"lbl_tbl_colttl_schdesc": "Description"
+	},
+	"tooltips": {
+		"tip_addnewuser": ""
+	},
+	"msgsclient": {
+		"cmsg_email_invalid": "Invalid email address"
+	}
+}

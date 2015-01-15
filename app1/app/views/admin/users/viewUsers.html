@@ -1,0 +1,453 @@
+<div class="row Ig-Admin-toolbar">
+	<div class="row-fluid Ig-Admin-toolbar-div">
+		<div class="col-sm-3 text-left">
+
+			<button class="btn btn-default pull-left gradient" data-toggle="modal" ng-click="addUsersPopUp()">
+				<img src="images/Portal/Images/add_24.png" class="Ig-button-imgCls"/>
+				{{ dataLang.labels.lblAddUser }}
+			</button>
+		</div>
+
+		<div class="col-sm-9 text-right">
+			<form class="col-sm-3 pull-right" role="search">
+				<div class="input-group Ig-search-group">
+					<input type="text" class="form-control" placeholder="{{ dataLang.labels.searchPlaceholder }}" name="srch-term" id="srch-term" data-ng-model="userSearchVal" ng-change = "userSeacrhKeyPress(userSearchVal)">
+					<div class="input-group-btn">
+						<button class="btn btn-default Ig-grey-bg-Cls gradient " type="submit" ng-click="$userSearch = !$userSearch;userSearchClick(userSearchVal);">
+							<i class="glyphicon" ng-class="{ 'glyphicon-remove' : $userSearch,'glyphicon-search':!$userSearch}"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+
+			<div class="btn-group pull-right Ig-comboCls Ig-comboClsSmall">
+				<button type="button" class="btn btn-default gradient">
+					{{ userDistrictVal }}
+				</button>
+				<button type="button" class="btn btn-default dropdown-toggle gradient" data-toggle="dropdown">
+					<span class="caret"> </span>
+					<span class="sr-only"> Toggle Dropdown </span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li ng-repeat="dis in DistrictCombo">
+						<a ng-click="userDistrictChnage(dis)" > {{ dis.orgName }} </a>
+					</li>
+
+				</ul>
+			</div>
+
+			<div class="btn-group pull-right">
+				<button type="button" class="btn btn-default gradient">
+					{{ userStatusVal }}
+				</button>
+				<button type="button" class="btn btn-default dropdown-toggle gradient" data-toggle="dropdown">
+					<span class="caret"> </span>
+					<span class="sr-only"> Toggle Dropdown </span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li ng-repeat="user in users">
+						<a ng-click="userStatusChnage(user)" > {{ user.active }} </a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="row clearfix">
+	<div class="col-md-12 column">
+		<div class="IgTableCls" >
+			<table ng-table="tableParams" class="table">
+				<tr ng-repeat="user in schools"
+				ng-click="user.$selected = !user.$selected; changeSelection(user,$event)"
+				ng-dblclick="changeSelection(user,$event);editUsersPopUp();"
+				>
+					<td data-title='dataLang.labels.col1title' sortable='dataLang.labels.col1SortParam'> {{user.userInformation.userName}} </td>
+					<td data-title='dataLang.labels.col2title' sortable='dataLang.labels.col2SortParam'> {{user.userInformation.firstName}} </td>
+					<td data-title='dataLang.labels.col3title' sortable='dataLang.labels.col3SortParam'> {{user.userInformation.lastName}} </td>
+					<td data-title='dataLang.labels.col4title' sortable='dataLang.labels.col4SortParam'> {{user.userOrgnizations[0].userRole.roleName}} </td>
+					<td data-title='dataLang.labels.col5title' sortable='dataLang.labels.col5SortParam'> {{user.userInformation.district}} </td>
+				</tr>
+			</table>
+			<button class="btn btn-default pull-right gradient Ig-Adnin-bottom-toolbar editUserCls" data-toggle="modal" ng-click="editUsersPopUp()">
+
+				{{ dataLang.labels.editSchoolbtn }}
+			</button>
+			<button class="btn btn-default pull-right gradient Ig-Adnin-bottom-toolbar ChangePassUserCls" data-toggle="modal" ng-click="changePassword()">
+				{{ dataLang.labels.changePassWord }}
+			</button>
+			<button class="btn btn-default pull-right gradient Ig-Adnin-bottom-toolbar makeInactiveCls" data-toggle="modal" ng-click="makeInActiveFn()">
+				{{ dataLang.labels.makeInActiveBtnlabel }}
+			</button>
+			<button class="btn btn-default pull-right gradient Ig-Adnin-bottom-toolbar" data-toggle="modal" ng-click="onRefreshUser()">
+
+				<img src="images/Portal/Images/refresh16.png"/>
+			</button>
+
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade bs-modal-lg" id="addUsersModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog bs-modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!--
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				&times;
+				</button>
+				-->
+				<h4 class="modal-title" id="myModalLabel"><img src= '{{ addUserPopUpIconurl }}' /> {{ addUserpopUpTitle }}</h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" role="form" name="addEditForm">
+
+					<div class="row">
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelEmail }} <span class="mandatoryCls"> * </span> </label>
+								<div class="col-sm-7">
+									<input type="email" class="form-control" required ng-model="user.emailId">
+								</div>
+							</div>
+
+						</div>
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelLName }} <span class="mandatoryCls"> * </span> </label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control"  required ng-model="user.lastName">
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelFName }} <span class="mandatoryCls"> * </span> </label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" required ng-model="user.fName">
+								</div>
+							</div>
+
+						</div>
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelAddress }} </label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" ng-model="user.address">
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelCity }} </label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" ng-model="user.city">
+								</div>
+							</div>
+
+						</div>
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelState }} <span class="mandatoryCls"> * </span> </label>
+								<div class="col-sm-7">
+									
+									
+									<input type="text" class="form-control typeahead-devs" name="states" required ng-model="user.state">
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="row">
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelZip }} </label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" ng-model="user.zip">
+								</div>
+							</div>
+
+						</div>
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelDistrict }} <span class="mandatoryCls"> * </span> </label>
+								<div class="col-sm-7">
+									<!-- Split button -->
+									<div class="btn-group col-sm-12 comboCls">
+										<button type="button" class="btn btn-default gradient col-sm-10">
+											{{ addEditDistval }}
+										</button>
+										<button type="button" class="btn btn-default dropdown-toggle gradient col-sm-2" data-toggle="dropdown">
+											<span class="caret"> </span>
+											<span class="sr-only"> Toggle Dropdown </span>
+										</button>
+										<ul class="dropdown-menu" role="menu">
+											<li ng-repeat="user in addEditDist">
+												<a ng-click="addEditDistChange(user)" > {{ user.orgName }} </a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="row">
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelPassword }} <span class="mandatoryCls"> * </span> </label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" required ng-model="user.password">
+								</div>
+							</div>
+
+						</div>
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelVerifyPass }} <span class="mandatoryCls"> * </span> </label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" required ng-model="user.verifyPassword">
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					<div class="row">
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelRole }} </label>
+								<div class="col-sm-7">
+									<div class="btn-group col-sm-12 comboCls">
+										<button type="button" class="btn btn-default gradient col-sm-10">
+											{{ addEditRoleval }}
+										</button>
+										<button type="button" class="btn btn-default dropdown-toggle gradient col-sm-2" data-toggle="dropdown">
+											<span class="caret"> </span>
+											<span class="sr-only"> Toggle Dropdown </span>
+										</button>
+										<ul class="dropdown-menu" role="menu">
+											<li ng-repeat="user in addEditDist">
+												<a ng-click="addEditRoleChange(user)" > {{ user.orgName }} </a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelSISID }} <span class="mandatoryCls"> * </span> </label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control" required ng-model="user.sisId">
+								</div>
+							</div>
+
+						</div>
+						<div class=" col-xs-6">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-5 control-label"> {{ dataLang.labels.addPopupLabelSelectSchool }} </label>
+								<div class="col-sm-7">
+									<div class="selectSchoolcls">
+										<ul ng-repeat="list in selectSchool">
+											<li><input type="checkbox" ng-change="selectSchoolChange(list.name,selectSchoolval+$index)" ng-model="selectSchoolval+$index"/>{{list.name}}</li>
+											
+										</ul>
+
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+
+					<div class="row">
+						<div class=" col-xs-6">
+							<div class="roleTableMain IgTableCls">
+								<!--<table ng-table="roleTableParams" class="table">
+								<tbody>
+								<tr ng-repeat="user in roleList">
+								<td data-title="'First Name'" > {{user.name}} </td>
+								<td data-title="'Last Name'" > {{user.age}} </td>
+								</tr>
+								</tbody>
+								</table>-->
+
+								<table ng-table="roleTableParams" class="table">
+									<tbody ng-repeat="group in $groups">
+										<tr class="ng-table-group">
+											<td colspan="{{$columns.length}}"><a href="" ng-click="group.$hideRows = !group.$hideRows"> <span class="glyphicon" ng-class="{ 'glyphicon-chevron-right': group.$hideRows, 'glyphicon-chevron-down': !group.$hideRows }"></span> <strong>{{ group.value }}</strong> </a></td>
+										</tr>
+										<tr ng-hide="group.$hideRows" ng-repeat="user in group.data">
+											<td sortable="name" data-title="'Permission'"> {{user.name}} </td>
+											<td sortable="age" data-title="'Status'">
+											<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default allowLoginsLabel">
+					<input type="radio" name="allowLogins" class="allowLogins"  value="active"  ng-model="dist.allowLogins" /> Allow
+					</label>
+					<label class="btn btn-default allowLoginsLabel">
+					<input type="radio" name="allowLogins" class="allowLogins"  value="inactive" ng-model="dist.allowLogins"/> Restrict
+					</label>
+					</div></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+							<button type="button" class="btn btn-default pull-right" ng-click="onAddRole()">
+								Add Role
+							</button>
+						</div>
+						<div class=" col-xs-6">
+							<div class="roleTablesub IgTableCls">
+								<table ng-table="roleResultTableParams" class="table">
+									<tr ng-repeat="user in usersSub">
+										<td data-title="'Role Name'" header-class="tableHeadTextCls"> {{user.name}} </td>
+										<td data-title="'Remove'" header-class="tableHeadTextCls"><img src="images/Portal/Images/cancel_23.png" /></td>
+
+									</tr>
+								</table>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</form>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						{{ dataLang.labels.popLabelCancel }}
+					</button>
+					<button type="button" class="btn btn-primary" ng-click="addEditSubmit()">
+						{{ dataLang.labels.addPopupLabelSave }}
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+</div>
+
+<!-- Modal -->
+<div class="modal fade changePasswordModal" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="addSchoolModalLabel" aria-hidden="true" >
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!--
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				&times;
+				</button>
+				-->
+				<h4 class="modal-title" id="addSchoolModalLabel"><img src="images/Portal/Images/access_40.png"/> {{ changePasswordText }} </h4>
+			</div>
+			<div class="modal-body">
+
+				<form class="form-horizontal" role="form" name="form">
+
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-5 control-label"> New Password <span class="mandatoryCls"> * </span> </label>
+						<div class="col-sm-6">
+							<input data-ng-model='password' type="password" name='password' placeholder='password' class="form-control" ng-change="userPasswordchange(password)">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-5 control-label"> Verify New Password </label>
+						<div class="col-sm-6">
+							<input ng-model='conformPassword' type="password" class="form-control"  name='confirm_password' placeholder='confirm password' ng-change="userPasswordchange(conformPassword)">
+						</div>
+					</div>
+					<div class="Ig-password-alert">
+						<p class="passNotMach">
+							Passwords do not match.
+						</p>
+						<p class="eightChar">
+							The Password must contain atleast eight characters.
+						</p>
+						<p class="upperChar">
+							The Password must contain atleast one upper case characters.
+						</p>
+						<p class="lowerChar">
+							The Password must contain atleast one lower case characters.
+						</p>
+						<p class="digitChar">
+							The Password must contain atleast one digit or special characters.
+						</p>
+
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					Cancel
+				</button>
+				<button type="button" class="btn btn-primary" ng-disabled="afterValidation" ng-click="passwordChange()">
+					Ok
+				</button>
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="makeInActiveModal" tabindex="-1" role="dialog" aria-labelledby="makeInActiveModalLabel" aria-hidden="true" >
+	<div class="modal-dialog Ig-Alert-cls">
+		<div class="modal-content">
+
+			<div class="modal-body">
+
+				<div class="row">
+					<div class="col-md-2">
+						<img src="images/Portal/Images/Warning.png" class="waringCls"/>
+
+					</div>
+					<div class="col-md-9">
+						<h4 class="waringDescCls"> {{ waringInfoAlert }} </h4>
+
+					</div>
+
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default alertCancel" data-dismiss="modal">
+					Cancel
+				</button>
+				<button type="button" class="btn btn-primary alertOk" ng-click="conformationOk()">
+					Ok
+				</button>
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+</div>
+
+ <div class=" alert alert-success notificationAlert">
+        <a href="" class="close" ng-click="notificationClose()">&times;</a>
+      <strong> {{ notificationMsg }} </strong> 
+    </div>

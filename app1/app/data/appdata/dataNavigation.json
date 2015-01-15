@@ -1,0 +1,124 @@
+{
+    "topmenu": [
+        {
+            "menu_name": "LOGOUT",
+            "mod_name": "MOD_LOGOUT",
+            "label": "lbl_mnu_top_logout",
+            "root": "logout"
+        },
+        {
+            "menu_name": "MYACCOUNT",
+            "mod_name": "MOD_MYACCOUNT",
+            "label": "lbl_mnu_top_myaccount",
+            "root": "myaccount"
+        },
+        {
+            "menu_name": "MYSCHOOLS",
+            "mod_name": "MOD_MYSCHOOLS",
+            "label": "lbl_mnu_top_myschools",
+            "root": "myschools"
+        }
+    ],
+    "mainmenu": [
+        {
+            "menu_name": "ASSESSMENTS",
+            "mod_name": "MOD_ASSESSMENTS",
+            "label": "lbl_mnu_main_assessments",
+            "root": "assessments"
+        },
+        {
+            "menu_name": "SCOREBOOK",
+            "mod_name": "MOD_SCOREBOOK",
+            "label": "lbl_mnu_main_scorebook",
+            "root": "scorebook"
+        },
+        {
+            "menu_name": "REPORTS",
+            "mod_name": "MOD_REPORTS",
+            "label": "lbl_mnu_main_reports",
+            "root": "reports"
+        },
+        {
+            "menu_name": "ADMIN",
+            "mod_name": "MOD_ADMIN",
+            "label": "lbl_mnu_main_admin",
+            "root": "admin",
+            "submenus": [
+                {
+                    "menu_name": "ADMINDISTRICTS",
+                    "mod_name": "MOD_ADMIN_DISTRICTS",
+                    "label": "lbl_mnu_main_admin_districts",
+                    "root": "admin/districts"
+                },
+                {
+                    "menu_name": "ADMINSCHOOLS",
+                    "mod_name": "MOD_ADMIN_SCHOOLS",
+                    "label": "lbl_mnu_main_admin_schools",
+                    "root": "admin/districts"
+                },
+                {
+                    "menu_name": "ADMINCLASSES",
+                    "mod_name": "MOD_ADMIN_CLASSES",
+                    "label": "lbl_mnu_main_admin_classes",
+                    "root": "admin/classes"
+                },
+                {
+                    "menu_name": "ADMINSTUDENTS",
+                    "mod_name": "MOD_ADMIN_STUDENTS",
+                    "label": "lbl_mnu_main_admin_students",
+                    "root": "admin/students"
+                },
+                {
+                    "menu_name": "ADMINUSERS",
+                    "mod_name": "MOD_ADMIN_USERS",
+                    "label": "lbl_mnu_main_admin_users",
+                    "root": "admin/users"
+                },
+                {
+                    "menu_name": "ADMINROLES",
+                    "mod_name": "MOD_ADMIN_ROLES",
+                    "label": "lbl_mnu_main_admin_roles",
+                    "root": "admin/roles"
+                },
+                {
+                    "menu_name": "ADMINSIS",
+                    "mod_name": "MOD_ADMIN_SIS",
+                    "label": "lbl_mnu_main_admin_sis",
+                    "root": "admin/roles"
+                },
+                {
+                    "menu_name": "ADMINLOG",
+                    "mod_name": "MOD_ADMIN_LOG",
+                    "label": "lbl_mnu_main_admin_log",
+                    "root": "admin/log"
+                },
+                {
+                    "menu_name": "ADMINSYSTEM",
+                    "mod_name": "MOD_ADMIN_SYSTEM",
+                    "label": "lbl_mnu_main_admin_system",
+                    "root": "admin/system"
+                }
+            ]
+        }
+    ],
+    "footermenu": [
+        {
+            "menu_name": "ABOUT",
+            "mod_name": "MOD_ABOUT",
+            "label": "lbl_mnu_fot_about",
+            "root": "logout"
+        },
+        {
+            "menu_name": "HELP",
+            "mod_name": "MOD_HELP",
+            "label": "lbl_mnu_foot_help",
+            "root": "logout"
+        },
+        {
+            "menu_name": "LEGAL",
+            "mod_name": "MOD_LEGAL",
+            "label": "lbl_mnu_foot_legal",
+            "root": "logout"
+        }
+    ]
+}

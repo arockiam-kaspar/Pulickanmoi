@@ -1,0 +1,340 @@
+<div >
+	<div class="row Ig-Admin-toolbar">
+		<div class="row-fluid Ig-Admin-toolbar-div">
+			<div class="col-sm-3 text-left">
+
+				<button class="btn btn-default pull-left gradient" data-toggle="modal" ng-click="onAddEditBtnClick($event,this)" data-target="#" id="addDistrictId">
+					<img src="images/Portal/Images/add_24.png" />{{dataLang.labels.lblAddDist}}...
+				</button>
+			</div>
+			<div class="col-sm-3 text-center">
+				<div class="Ig-notification" ng-hide="true">
+					{{dataLang.messages.lblSuccessMsg}}
+				</div>
+			</div>
+			<div class="col-sm-6 text-right">
+				<form class="col-sm-4 pull-right" role="search">
+					<div class="input-group Ig-search-group">
+						<input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" ng-model='searchText' ng-keyup="onSearchKeyUp($event,this)">
+						</input>
+						<div class="input-group-btn">
+							
+						<button class="btn btn-default Ig-grey-bg-Cls gradient " type="submit" ng-click="$userSearch = !$userSearch;userSearchClick(userSearchVal);">
+							<i class="glyphicon" ng-class="{ 'glyphicon-remove' : $userSearch,'glyphicon-search':!$userSearch}"></i>
+						 </button>
+						</div>
+					</div>
+				</form>
+
+				<div class="btn-group pull-right Ig-comboCls">
+					<button type="button" class="btn btn-default gradient">
+						{{selectedStatus.status}}
+					</button>
+					<button type="button" class="btn btn-default dropdown-toggle gradient" data-toggle="dropdown">
+						<span class="caret"> </span>
+						<span class="sr-only">  </span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li ng-repeat="i in activeDatas" ng-click="onStatusComboClick($event,i,this)">
+							<a > <img src="images/glyph_validator_16.png" ng-show="{{setVisible}}">{{ i.status }}</img></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="IgTableCls" >
+				<table ng-table="tableParams" class="table">
+					<tr ng-repeat="dist in distRec| filter:filterExpr" ng-click="dist.$selected = !dist.$selected; changeSelection(dist,$event)"  ng-dblclick="onAddEditBtnClick($event,dist);" ">
+
+					<td data-title='dataLang.labels.lblCusIdDist' sortable="'tenantID'">
+					{{dist.tenantID}}
+					</td>
+					<td data-title='dataLang.labels.lblDistName' sortable="'orgName'">
+					{{dist.orgName}}
+					</td>
+					<td data-title='dataLang.labels.lblContName' sortable="'contactName'">
+					{{dist.tenant.contactName}}
+					</td>
+					<td data-title='dataLang.labels.lblZip' sortable="'zip'">
+					{{dist.tenant.zip}}
+					</td>
+					</tr>
+					</table>
+
+					</div>
+					</div>
+					</div>
+
+					<div class="row clearfix">
+					<div class="col-md-12 column">
+
+					<button class="btn btn-default pull-right gradient Ig-Adnin-bottom-toolbar" ng-disabled='makeDisableMethod' data-toggle="modal"  ng-click="onAddEditBtnClick($event,this)" data-target="#">
+
+					{{dataLang.labels.lblEditBtn}}
+					</button>
+					<button class="btn btn-default pull-right gradient Ig-Adnin-bottom-toolbar" ng-disabled='makeDisableForRecords'  data-toggle="modal" ng-click="onShowInactivePopup()">
+					{{makeBtnLabel}}
+					</button>
+					<button class="btn btn-default pull-right gradient Ig-Adnin-bottom-toolbar" ng-disabled='makeDisableForRecords' data-toggle="modal" data-target="#permanentlyDeleteModal">
+
+					{{dataLang.labels.lblDelete}}
+					</button>
+					<button class="btn btn-default pull-right gradient Ig-Adnin-bottom-toolbar" ng-click="doRefresh()">
+
+					<img src="images/Portal/Images/refresh16.png" />
+					</button>
+
+					</div>
+					</div>
+					</div>
+
+					<div class="modal fade" id="myDistrictModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+					<div class="modal-content">
+					<div class="modal-header">
+
+					<h4 class="modal-title" id="myModalLabel">
+					<img src='{{addEditImageURL}}'></img> {{AddEditDistrictLabel}}</h4>
+					</div>
+					<div class="modal-body">
+
+					<form class="form-horizontal" role="form" name="districtForm" novalidate class="css-form">
+
+					<div class="form-group">
+					<label class="col-sm-4 control-label">{{dataLang.labels.lblFormStatus}}</label>
+					<div class="col-sm-8">
+
+					<div class="checkbox">
+					<label>
+					<input type="checkbox" name="userStatus" ng-model="dist.Status" >{{dataLang.labels.lblFormInact}}
+					</label>
+					</div>
+
+					</div>
+					</div>
+
+					<div class="form-group">
+					<label class="col-sm-4 control-label">{{dataLang.labels.lblFormAllow}}</label>
+					<div class="col-sm-8">
+					<div class="btn-group" data-toggle="buttons">
+					<label class="btn btn-default allowLoginsLabel allowActive">
+					<input type="radio" name="allowLogins" class="allowLogins"  value="active"  ng-model="dist.allowLogins" > {{dataLang.labels.lblFormAct}}
+					</label>
+					<label class="btn btn-default allowLoginsLabel allowInactive">
+					<input type="radio" name="allowLogins" class="allowLogins"  value="inactive" ng-model="dist.allowLogins"> {{dataLang.labels.lblFormInact}}
+					</label>
+					</div>
+					</div>
+					</div>
+
+					<div class="form-group">
+					<label for="inputEmail3" class="col-sm-4 control-label">{{dataLang.labels.lblFormCustId}}</label>
+					<div class="col-sm-7">
+					<input type="text" class="form-control" id="inputEmail3" name="userIdNumber" ng-readonly="true"  ng-model="dist.customerId">
+					</div>
+					</div>
+					<div class="form-group">
+					<label for="inputPassword3" class="col-sm-4 control-label"  >{{dataLang.labels.lblDistName}}<span class="redMarkFields">*</span>
+					</label>
+					<div class="col-sm-7">
+					<input type="text" class="form-control" id="inputPassword3" ng-model="dist.OrgName" required >
+					</div>
+					</div>
+					
+					<div class="form-group">
+					<label  class="col-sm-4 control-label"  >{{dataLang.labels.lblFormLang}}
+					</label>
+						<div class="col-sm-8">
+						<div class="btn-group col-sm-8 comboCls">
+							<button type="button" class="btn btn-default col-sm-9" ng-model="dist.selectedLan">
+							{{dist.selectedLanguage.value}}
+							</button>
+								<button type="button" class="btn btn-default dropdown-toggle col-sm-2" data-toggle="dropdown">
+									<span class="caret">
+								</span>
+									<span class="sr-only">
+								
+								</span>
+								</button>
+							<ul class="dropdown-menu" role="menu">
+								<li ng-repeat="i in allLanguages" ng-click="onLanguageComboClick($event,i)">
+									<a>{{ i.value }}</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+					
+					<div class="form-group">
+					<label for="inputPassword3" class="col-sm-4 control-label">{{dataLang.labels.lblContName}}
+					</label>
+					<div class="col-sm-7">
+					<input type="text" class="form-control" id="inputPassword3" name="userContact" ng-model="dist.ContactName">
+					</div>
+					</div>
+					<div class="form-group">
+					<label for="userEmail" class="col-sm-4 control-label"  >{{dataLang.labels.lblFormEmail}}<span class="redMarkFields">*</span>
+					</label>
+					<div class="col-sm-7">
+					<input type="email" class="form-control" id="userEmail" name="userEmail" ng-model="dist.Email" required >
+					</div>
+					</div>
+					<div class="form-group">
+					<label for="inputPassword3" class="col-sm-4 control-label">{{dataLang.labels.lblFormAdd}}
+					</label>
+					<div class="col-sm-7">
+					<input type="text" class="form-control" id="inputPassword3" name="userAddress" ng-model="dist.Address" >
+					</div>
+					</div>
+
+					<div class="form-group">
+					<label for="inputEmail3" class="col-sm-4 control-label"  >{{dataLang.labels.lblFormCity}}
+					</label>
+					<div class="col-sm-7">
+					<input type="text" class="form-control" id="inputEmail3" name="userCity" ng-model="dist.City"  >
+					</div>
+					</div>
+					<div class="form-group">
+					<label for="Autocomplete" class="col-sm-4 control-label" >{{dataLang.labels.lblFormState}}<span class="redMarkFields">*</span>
+					</label>
+
+					<div class="col-sm-7">
+					<input type="text" class="form-control typeahead-devs" id="inputEmail3" name="userCity" ng-model="dist.State"  required>
+					
+					</div>
+					<div class="autCompHeight" ng-show="selectedCountry">
+					</div>
+
+					</div>
+
+					<div class="form-group">
+					<label for="inputPassword3" class="col-sm-4 control-label"  >{{dataLang.labels.lblZip}}
+					</label>
+					<div class="col-sm-3">
+					<input type="text" class="form-control" id="inputPassword3" name="userZip" ng-model="dist.Zip"  >
+					</div>
+					</div>
+					<div class="form-group">
+					<label for="inputPassword3" class="col-sm-4 control-label"  >{{dataLang.labels.lblFormTime}}
+					</label>
+
+					<div class="col-sm-8">
+					<div class="btn-group col-sm-11 comboCls">
+					<button type="button" class="btn btn-default col-sm-10" >
+					{{dist.selectedTimeZone.timeZoneDisplayName}}
+					</button>
+					<button type="button" class="btn btn-default dropdown-toggle col-sm-2" data-toggle="dropdown">
+					<span class="caret">
+					</span>
+					<span class="sr-only">
+					
+					</span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li ng-repeat="i in allTimeZone" ng-click="onTimeZoneComboClick($event,i)">
+							<a>{{ i.timeZoneDisplayName }}</a>
+						</li>					
+					
+					</ul>
+					</div>
+					</div>
+					</div>
+					</form>
+
+					</div>
+					<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{{dataLang.labels.lblFormCancel}}</button>
+					<button type="button"  class="btn btn-primary" ng-click="onDistrictSubmit()"  ng-disabled="form.$invalid">
+					{{dataLang.labels.lblFormOk}}
+					</button>
+					</div>
+					</div>
+					<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+					</div>
+					<!-- /.modal -->
+
+					
+<!--Form Mandatory modal-->
+<div class="modal fade " id="formMandatoryModal" tabindex="-1" role="dialog" aria-labelledby="formMandatoryModalLabel" aria-hidden="true">
+	<div class="modal-dialog Ig-Alert-cls">
+		<div class="modal-content">
+			<div class="modal-body">
+				<h4 class="modal-title" id="formMandatoryModalLabel">
+				<div class="deletePopupCls">
+					{{dataLang.messages.lblFormValidMsg}}
+				</div></h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">
+					{{dataLang.labels.lblFormOk}}
+				</button>
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+</div>
+<!---end-->
+<!-- Modal -->
+<div class="modal fade " id="permanentlyDeleteModal" tabindex="-1" role="dialog" aria-labelledby="addSchoolModalLabel" aria-hidden="true">
+	<div class="modal-dialog Ig-Alert-cls">
+		<div class="modal-content">
+			<!-- <div class="modal-header">
+			</div> -->
+			<div class="modal-body">
+				<h4 class="modal-title" id="addSchoolModalLabel">
+				<div class="deletePopupCls">
+					{{dataLang.messages.lblDeleteMsg}} {{selectedRecord.orgName}}?{{dataLang.messages.lblAssoDelMsg}}
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					{{dataLang.labels.lblFormCancel}}
+				</button>
+				<button type="button" class="btn btn-primary" ng-click="onDeleteDist()">
+					{{dataLang.labels.lblFormOk}}
+				</button>
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+</div>
+</div>
+<!-- Modal -->
+
+<!-- Modal -->
+<div class="modal fade " id="makeInActiveModal" tabindex="-1" role="dialog" aria-labelledby="addSchoolModalLabel" aria-hidden="true">
+	<div class="modal-dialog Ig-Alert-cls">
+		<div class="modal-content">
+			<div class="modal-body">
+				<h4 class="modal-title" id="addSchoolModalLabel">
+				<div class="deletePopupCls">
+					{{dataLang.messages.lblInactMsg}} {{selectedRecord.orgName}}? {{dataLang.messages.lblAssoInacMsg}}
+				</div></h4>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					{{dataLang.labels.lblFormCancel}}
+				</button>
+				<button type="button" class="btn btn-primary"  ng-click="onInactiveDistrict()">
+					{{dataLang.labels.lblFormOk}}
+				</button>
+			</div>
+
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+</div>
+</div>

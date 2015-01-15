@@ -1,0 +1,80 @@
+<div ng-show="showHeader">
+	<div class="row clearfix">
+		<div class="col-md-12">
+			<div class="logo">
+				<a class="logoname" ng-click="doLogut()">Ignite</a>
+				<span><strong>Admin , Ignite</strong> - <a href="#/login">Logout</a> |</span>
+				<span><a href="#">Account</a> |</span>
+				<span><a href="#">My Schools</a></span>
+				<span>2013-2014 Marking Period</span>
+			</div>
+		</div>
+	</div>
+	<div class="row clearfix" ng-show="showMainNav">
+		<div class="col-md-12 column">
+			<nav class="navbar navbar-default ig-mainnav" role="navigation">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
+				</div>
+	
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a ng-click="setRoute('assessments')">Assessments</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('scorebook')">Score Book</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('reports')">Reports</a>
+						</li>
+						<li class="active">
+							<a ng-click="setRoute('admin/districts')">Administration</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<nav class="navbar navbar-default ig-mainnav" role="navigation">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+						<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
+				</div>
+	
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a ng-click="setRoute('admin/districts')">Districts</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('admin/schools')">Schools</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('admin/classes')">Classes</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('admin/students')">Students</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('admin/users')">Users</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('admin/roles')">Roles</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('admin/sis')">SIS</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('admin/log')">Log</a>
+						</li>
+						<li>
+							<a ng-click="setRoute('admin/system')">System</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>

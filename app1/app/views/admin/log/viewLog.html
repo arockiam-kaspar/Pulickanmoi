@@ -1,0 +1,192 @@
+<div class="row Ig-Admin-toolbar">
+	<div class="row-fluid Ig-Admin-toolbar-div">
+		<div class="col-sm-6 text-left">
+
+			<button class="btn btn-default pull-left gradient " data-toggle="modal" ng-click="onRefreshLog()">
+				<img src="images/Portal/Images/refresh_24.png" class="Ig-button-imgCls" />
+				{{ dataLang.labels.logRefresh }}
+			</button>
+			<button class="btn btn-default pull-left gradient Ig-comboCls" data-toggle="modal" data-target="#myModal">
+				<img src="images/Portal/Images/download_24.png" class="Ig-button-imgCls" />
+				{{ dataLang.labels.logDownLoad }}
+			</button>
+		</div>
+
+		<div class="col-sm-6 text-right">
+			<form class="col-sm-4 pull-right" role="search">
+				<div class="input-group Ig-search-group">
+					<input type="text" class="form-control" placeholder="{{ dataLang.labels.searchPlaceholder }}" name="srch-term" id="srch-term" data-ng-model="logSearchVal" ng-change = "logSeacrhKeyPress(logSearchVal)">
+					<div class="input-group-btn">
+						<button class="btn btn-default Ig-grey-bg-Cls gradient " type="submit" ng-click="$logSearch = !$logSearch;logSearchClick(logSearchVal);">
+							<i class="glyphicon" ng-class="{ 'glyphicon-remove' : $logSearch,'glyphicon-search':!$logSearch}"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+			<button class="btn btn-default pull-right gradient" data-toggle="modal" ng-click="showFilterModel()">
+				<img src="images/Portal/Images/filter_24.png" class="Ig-button-imgCls" />
+				{{ dataLang.labels.logFilter }}
+			</button>
+
+		</div>
+	</div>
+</div>
+<div class="row clearfix">
+	<div class="col-md-12 column">
+		<div class="IgTableCls" >
+			<table ng-table="tableParams" class="table">
+				<tr ng-repeat="user in auditLog"
+				ng-click="user.$selected = !user.$selected; changeSelection(user)"
+				ng-dblclick="changeSelection(user);showAddSchool();"
+				>
+					<td data-title='dataLang.labels.col1title' sortable='dataLang.labels.col1SortParam'> {{user.actionTime | date:'y-MM-d h:mm:sss '}} </td>
+					<td data-title='dataLang.labels.col2title' sortable='dataLang.labels.col2SortParam'> {{user.source}} </td>
+					<td data-title='dataLang.labels.col3title' sortable='dataLang.labels.col3SortParam'> {{user.userID}} </td>
+					<td data-title='dataLang.labels.col4title' sortable='dataLang.labels.col4SortParam'> {{user.eventID}} </td>
+					<td data-title='dataLang.labels.col5title' sortable='dataLang.labels.col5SortParam'> {{user.dataType}} </td>
+					<td data-title='dataLang.labels.col6title' sortable='dataLang.labels.col6SortParam'> {{user.action}} </td>
+					<td data-title='dataLang.labels.col7title' sortable='dataLang.labels.col7SortParam'> {{user.recordID}} </td>
+					<td data-title='dataLang.labels.col8title' sortable='dataLang.labels.col8SortParam'> <div class="auditlogDataCls"> {{user.data}} </div></td>
+				</tr>
+			</table>
+			<a href="" class="pull-right Ig-Adnin-bottom-toolbar" ng-click="onRefreshLog()"> {{ dataLang.labels.logRefresh }} </a>
+
+			<div class=" pull-right Ig-Adnin-bottom-toolbar" >
+				{{ dataLang.labels.dateAsOf }} {{ lastupdateTime |date : 'M/dd/yyyy h:mm:ss a'}}
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade bs-modal-lg" id="logFilterId" class="logFilterCls" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+	<div class="modal-dialog bs-modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!--
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				&times;
+				</button>
+				-->
+				<h4 class="modal-title" ><img src="images/Portal/Images/filter_40.png"/> {{ dataLang.labels.filterPopUpLabel }}</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" role="form">
+
+					<div class="row">
+						<div class="col-xs-4 filterDataCls">
+							<ul>
+								<li><input type="checkbox" /> Sources </li>
+							</ul>
+							<ul ng-repeat="obj in sources">
+								<li><input type="checkbox" /> {{ obj.name }}</li>
+							</ul>
+
+						</div>
+						<div class="col-xs-4 filterDataCls">
+							<ul>
+								<li><input type="checkbox" /> Data types </li>
+							</ul>
+							<ul ng-repeat="obj in dataTypes">
+								<li><input type="checkbox" /> {{ obj.name }}</li>
+							</ul>
+
+						</div>
+						<div class="col-xs-4 filterDataCls">
+							<ul>
+								<li><input type="checkbox" /> Actions </li>
+							</ul>
+							<ul ng-repeat="obj in actions">
+								<li><input type="checkbox" /> {{ obj.name }}</li>
+							</ul>
+
+						</div>
+
+					</div>
+					<div class="row">
+						<label for="inputEmail3" class="control-label"> Begin Date & time</label>
+								
+					</div>
+					<div class="row">
+						<div class="col-xs-3">
+									<input type="date" class="form-control" >
+								</div>
+								
+								<div class="col-xs-1">
+									<input type="number" name="hour" id="hour"  min="1" max="12" step="1" value="1" class="col-xs-12">
+								</div>
+								<div class="col-xs-1">
+									<input type="number" name="hour" id="hour"  min="1" max="59" step="0" value="0" class="col-xs-12">
+								</div>
+								<div class="col-xs-1">
+									<input type="number" name="hour" id="hour"  min="1" max="59" step="0" value="0" class="col-xs-12">
+								</div>
+								<div class="col-xs-2">
+									<input type="number" name="hour" id="hour"  min="1" max="999" step="0" value="0" class="col-xs-12">
+								</div>
+								
+										<div class="btn-group col-xs-3" data-toggle="buttons">
+					<label class="btn btn-default allowLoginsLabel">
+					<input type="radio" name="allowLogins" class="allowLogins"  value="active"  ng-model="dist.allowLogins" /> AM
+					</label>
+					<label class="btn btn-default allowLoginsLabel">
+					<input type="radio" name="allowLogins" class="allowLogins"  value="inactive" ng-model="dist.allowLogins"/> PM
+					</label>
+					</div>
+					</div>
+					
+					<div class="row">
+						<label for="inputEmail3" class="control-label"> Begin Date & time</label>
+								
+					</div>
+					<div class="row">
+						<div class="col-xs-3">
+									<input type="date" class="form-control" >
+								</div>
+								
+								<div class="col-xs-1">
+									<input type="number" name="hour" id="hour"  min="1" max="12" step="1" value="1" class="col-xs-12">
+								</div>
+								<div class="col-xs-1">
+									<input type="number" name="hour" id="hour"  min="1" max="59" step="0" value="0" class="col-xs-12">
+								</div>
+								<div class="col-xs-1">
+									<input type="number" name="hour" id="hour"  min="1" max="59" step="0" value="0" class="col-xs-12">
+								</div>
+								<div class="col-xs-2">
+									<input type="number" name="hour" id="hour"  min="1" max="999" step="0" value="0" class="col-xs-12">
+								</div>
+													<div class="btn-group col-xs-3" data-toggle="buttons">
+					<label class="btn btn-default allowLoginsLabel">
+					<input type="radio" name="allowLogins" class="allowLogins"  value="active"  ng-model="dist.allowLogins" /> AM
+					</label>
+					<label class="btn btn-default allowLoginsLabel">
+					<input type="radio" name="allowLogins" class="allowLogins"  value="inactive" ng-model="dist.allowLogins"/> PM
+					</label>
+					</div>
+					</div>
+
+
+				</form>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left" data-dismiss="modal">
+						Reset
+					</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">
+						Cancel
+					</button>
+					<button type="button" class="btn btn-primary">
+						Save
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+</div>
+
+
